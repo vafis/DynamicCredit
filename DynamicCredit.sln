@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicCredit.API", "DynamicCreditAPI\DynamicCredit.API.csproj", "{344CEEBF-9548-4EE7-9B92-30337DBC6641}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicCredit.DAL", "DynamicCredit.DAL\DynamicCredit.DAL.csproj", "{9A7B7CA1-234C-4A14-A325-23C8FF7F819C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicCredit.API.Host", "DynamicCredit.API.Host\DynamicCredit.API.Host.csproj", "{92ECCF69-0A05-43C1-A384-F492AA7DB420}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicCredit.API.Tests", "DynamicCredit.API.Tests\DynamicCredit.API.Tests.csproj", "{89F19B6B-A460-44D6-92F5-EE58049A4D0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicCredit.Web", "DynamicCredit.Web\DynamicCredit.Web.csproj", "{3096141C-849C-409C-8ED9-6BD5593B9772}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FD0D0473-B011-404D-9E53-5971BE15C2CA}"
+	ProjectSection(SolutionItems) = preProject
+		SQL.txt = SQL.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{344CEEBF-9548-4EE7-9B92-30337DBC6641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{344CEEBF-9548-4EE7-9B92-30337DBC6641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{344CEEBF-9548-4EE7-9B92-30337DBC6641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{344CEEBF-9548-4EE7-9B92-30337DBC6641}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A7B7CA1-234C-4A14-A325-23C8FF7F819C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A7B7CA1-234C-4A14-A325-23C8FF7F819C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A7B7CA1-234C-4A14-A325-23C8FF7F819C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A7B7CA1-234C-4A14-A325-23C8FF7F819C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92ECCF69-0A05-43C1-A384-F492AA7DB420}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92ECCF69-0A05-43C1-A384-F492AA7DB420}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92ECCF69-0A05-43C1-A384-F492AA7DB420}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92ECCF69-0A05-43C1-A384-F492AA7DB420}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89F19B6B-A460-44D6-92F5-EE58049A4D0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89F19B6B-A460-44D6-92F5-EE58049A4D0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89F19B6B-A460-44D6-92F5-EE58049A4D0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89F19B6B-A460-44D6-92F5-EE58049A4D0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3096141C-849C-409C-8ED9-6BD5593B9772}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3096141C-849C-409C-8ED9-6BD5593B9772}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3096141C-849C-409C-8ED9-6BD5593B9772}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3096141C-849C-409C-8ED9-6BD5593B9772}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

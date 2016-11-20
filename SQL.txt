@@ -1,0 +1,120 @@
+CREATE TABLE [dbo].[PrincipalBalanceRanges](
+	[RangeFrom] [float] NOT NULL,
+	[RangeTo] [float] NOT NULL,
+	[Range] [varchar](20) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[RangeFrom] ASC,
+	[RangeTo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+
+
+INSERT INTO [dbo].[PrincipalBalanceRanges]
+           ([RangeFrom]
+           ,[RangeTo]
+           ,[Range])
+     VALUES
+           (0,	50000,	'0 to 50K'),
+           ( 50000.1,	60000,	'50K to 60K'),
+            ( 60000.1,	70000,	'60K to 70K'),
+             (70000.1,	80000,	'70K to 80K'),
+             (80000.1,	90000,	'80K to 90K'),
+             (90000.1,	999999,	'90K to Above 90K')
+GO
+
+/****** Object:  StoredProcedure [dbo].[Get_Weighted_Average ]    Script Date: 20/11/2016 21:20:59 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE  PROCEDURE [dbo].[Get_Weighted_Average ]
+(
+
+    @filter nvarchar(100)     
+
+)
+AS
+BEGIN
+  WITH     
+     cteHistory (M_LoanID,ReportDate, CurrentPrincipalBalance, CurrentPropertyVal, LTV , WF_InterRate )
+	 AS
+	  (
+        SELECT H.M_LoanID, H.ReportDate, H.CurrentPrincipalBalance, H.CurrentPropertyVal, H.CurrentPrincipalBalance/H.CurrentPropertyVal as LTV,
+		       (H.CurrentPrincipalBalance*HR.CurrentInterestRate) as WF_InterRate  FROM 
+		           ( 
+                    select * , latestDate = max(ReportDate) OVER (PARTITION BY M_LoanID)
+                    FROM HISTORY
+				   ) as H
+              left join dbo.HISTORY_RATES HR ON H.M_LoanID = HR.M_LoanID AND H.ReportDate = HR.ReportDate
+			  WHERE latestDate=H.ReportDate
+       ),
+	  TotalPrincipalBalance
+	  AS
+	  (
+	     SELECT SUM(CurrentPrincipalBalance) AS TotalCurrentPrincipalBalance  FROM cteHistory
+	  ),
+	  Total_WF_InterRate
+	  AS
+	  (
+	     SELECT SUM(WF_InterRate) AS Total_WF_InterRate  FROM cteHistory
+	  )
+
+	 select  sum(CurrentPrincipalBalance * LTV)/TotalCurrentPrincipalBalance AS 'WA_LTV' , 
+	         SUM(WF_InterRate)/TotalCurrentPrincipalBalance AS 'WA_InterestRate'
+	 from cteHistory,TotalPrincipalBalance
+	 group by TotalCurrentPrincipalBalance
+END
+
+GO
+
+
+CREATE  PROCEDURE [dbo].[GetChart1]
+(
+
+    @filter nvarchar(100)     
+
+)
+AS
+BEGIN
+        SELECT  LoanOriginationYear=DATEPART(yyyy,LoanOriginationDate),
+		        COUNT(M_LoanID) as TotalLoans, 
+				Sum(OriginalPrincipalBalance) as TotalOriginalPrincipalBalance
+		FROM MASTER 
+		Group by DATEPART(yyyy,LoanOriginationDate)	
+		ORDER BY LoanOriginationYear
+END
+GO
+
+CREATE  PROCEDURE [dbo].[GetChart2]
+(
+
+    @filter nvarchar(100)     
+
+)
+AS
+BEGIN
+   SELECT Range, COUNT(*) AS Count
+   FROM PrincipalBalanceRanges P
+   INNER JOIN MASTER M ON M.OriginalPrincipalBalance >= RangeFrom AND M.OriginalPrincipalBalance < RangeTo
+   GROUP BY Range
+END
+
+GO
+
+  ALTER TABLE [DynamicCredit].[dbo].[MASTER]
+   ALTER COLUMN  M_LoanID varchar(45) NOT NULL
+
+   GO
+    ALTER TABLE [DynamicCredit].[dbo].[MASTER]
+  ALTER COLUMN  M_BorrowerID varchar(45) NOT NULL
+
+  GO
+   ALTER TABLE [DynamicCredit].[dbo].[MASTER]
+  ADD PRIMARY KEY (M_LoanID,M_BorrowerID)

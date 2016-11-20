@@ -1,0 +1,57 @@
+﻿<hr />
+<div class="row">
+    <div class="col-md-8">
+        <div class="panel panel-primary" id="panelCharts">
+            <div class="panel-heading">
+                <h3 class="panel-title">Charts</h3>
+            </div>
+
+            <div class="panel-body">
+                <div ng-if="loadingCharts">
+                    <div class="col-xs-4"></div>
+                    <div class="col-xs-4">
+                        <i class="fa fa-refresh fa-5x fa-spin"></i> <label class="label label-primary">Loading data...</label>
+                    </div>
+                    <div class="col-xs-4"></div>
+                </div>
+                <div class="col-xs-12 col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <strong>Chart 1 </strong>
+                        </div>
+                        <div class="panel-body">
+                            <div id="Chart1"></div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <strong>Chart 2 </strong>
+                        </div>
+                        <div class="panel-body">
+                            <div id="Chart2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-success" id="WeightedAverages">
+            <div class="panel-heading">
+                <h3 class="panel-title">Weighted Averages </h3>
+            </div>
+
+            <div class="panel-body">
+                <div ng-if="loadingWA">
+                    <div class="col-xs-4"></div>
+                    <div class="col-xs-4"><i class="fa fa-refresh fa-5x fa-spin"></i> <label class="label label-primary">Loading Weighted Averages..</label></div>
+                    <div class="col-xs-4"></div>
+                </div>
+                <div>
+                    <label class="label label-info">Weighted Average LTV : {{WAData[0].WA_LTV}} </label> <br/>
+                    <label class="label label-info">Weighted Average Interest Rate : {{WAData[0].WA_InterestRate}} </label> <br />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
